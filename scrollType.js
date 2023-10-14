@@ -381,38 +381,38 @@ const scroll = () => {
   gsap.fromTo(
     words,
     {
-      "will-change": "opacity, transform, filter", // Add filter to will-change
+      "will-change": "opacity, transform, filter",
       z: () => gsap.utils.random(500, 950),
       opacity: 0,
       xPercent: (pos) => gsap.utils.random(-100, 100),
       yPercent: (pos) => gsap.utils.random(-10, 10),
       rotationX: () => gsap.utils.random(-90, 90),
-      filter: "blur(20px)" // Start with a blur
+      filter: "blur(12px)"
     },
     {
-      ease: "expo",
+      ease: "power1.inOut",  // Adjusted the ease
       opacity: 1,
       rotationX: 0,
       rotationY: 0,
       xPercent: 0,
       yPercent: 0,
       z: 0,
-      filter: "blur(0px)", // Animate to no blur by the end
+      filter: "blur(0px)",
       scrollTrigger: {
         trigger: title,
         start: "center center",
-        end: "+=300%",
+        end: "+=200%",  // Adjusted the end value
         scrub: true,
         pin: title.parentNode
       },
       stagger: {
-        each: 0.006,
+        each: 0.003,  // Reduced the stagger value
         from: "random"
       }
     }
   );
 });
-};
+
 
 initSmoothScrolling();
 // GSAP Scroll Triggers
