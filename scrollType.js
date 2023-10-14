@@ -374,42 +374,44 @@ const scroll = () => {
   });
 
   type10.forEach((title) => {
-    const words = [...title.querySelectorAll(".word")];
+  const words = [...title.querySelectorAll(".word")];
 
-    words.forEach((word) => gsap.set(word.parentNode, { perspective: 1000 }));
+  words.forEach((word) => gsap.set(word.parentNode, { perspective: 1000 }));
 
-    gsap.fromTo(
-      words,
-      {
-        "will-change": "opacity, transform",
-        z: () => gsap.utils.random(500, 950),
-        opacity: 0,
-        xPercent: (pos) => gsap.utils.random(-100, 100),
-        yPercent: (pos) => gsap.utils.random(-10, 10),
-        rotationX: () => gsap.utils.random(-90, 90)
+  gsap.fromTo(
+    words,
+    {
+      "will-change": "opacity, transform, filter", // Add filter to will-change
+      z: () => gsap.utils.random(500, 950),
+      opacity: 0,
+      xPercent: (pos) => gsap.utils.random(-100, 100),
+      yPercent: (pos) => gsap.utils.random(-10, 10),
+      rotationX: () => gsap.utils.random(-90, 90),
+      filter: "blur(20px)" // Start with a blur
+    },
+    {
+      ease: "expo",
+      opacity: 1,
+      rotationX: 0,
+      rotationY: 0,
+      xPercent: 0,
+      yPercent: 0,
+      z: 0,
+      filter: "blur(0px)", // Animate to no blur by the end
+      scrollTrigger: {
+        trigger: title,
+        start: "center center",
+        end: "+=300%",
+        scrub: true,
+        pin: title.parentNode
       },
-      {
-        ease: "expo",
-        opacity: 1,
-        rotationX: 0,
-        rotationY: 0,
-        xPercent: 0,
-        yPercent: 0,
-        z: 0,
-        scrollTrigger: {
-          trigger: title,
-          start: "center center",
-          end: "+=300%",
-          scrub: true,
-          pin: title.parentNode
-        },
-        stagger: {
-          each: 0.006,
-          from: "random"
-        }
+      stagger: {
+        each: 0.006,
+        from: "random"
       }
-    );
-  });
+    }
+  );
+});
 };
 
 initSmoothScrolling();
